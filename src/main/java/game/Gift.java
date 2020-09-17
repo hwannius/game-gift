@@ -15,6 +15,13 @@ public class Gift {
     private Long walletId;
     private String status;
 
+    @PostUpdate
+    public void onPostUpdate(){
+        Used allocated = new Used();
+        BeanUtils.copyProperties(this, allocated);
+        allocated.publishAfterCommit();
+    }
+    
     @PostPersist
     public void onPostPersist(){
         Used used = new Used();
